@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模块与组件</title>
+</head>
+<body>
+    <div id="box"></div>
+
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="browser.min.js"></script>
+    <script type="text/babel">
+    let getId=document.getElementById('box');
+    //存值：在constructor()方法下的this.state
+    //取值： {this.state.变量名}
+    //修改值: setState()修改值
+    class Module extends React.Component{
+        constructor(props){
+            super(props),//传参给父类
+            this.state={  //存储值
+                count:12,
+            }
+            this.add=this.add.bind(this);//修改函数this指向
+        }
+
+        add(){ //自定义的方法 有this问题
+            this.setState({   //修改值
+            count:this.state.count+1,
+            })
+        }
+
+        render(){//函数自带的方法 this=>当前实例化对象
+            return(
+                <div>                 
+                    <h1>{this.state.count}</h1>   
+                    <button onClick={this.add}>add</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Module/>,getId);
+
+    </script>
+    
+</body>
+</html>
