@@ -16,32 +16,16 @@
     <script type="text/babel">
         let getId=document.getElementById('box');
         class Module extends React.Component{
-            constructor(props){
-                super(props)
-                this.state={
-                    num:11
-                }
-                this.addNum=this.addNum.bind(this);
-            }
-            addNum(){
-                this.setState({
-                    num:++this.state.num,
-                })
-
-            }
-
             render(){
                 return (
                     <div>
-                            <h1>{this.state.num}</h1>
-                            <button onClick={this.addNum}>add</button>
+                            <h1>{this.props.name}</h1>
+                            <h1>{this.props.children}</h1>
                     </div>
-
                 )
-
             }
         }
-        ReactDOM.render(<Module/>,getId);
+        ReactDOM.render(<Module name="王二">xxx</Module>,getId);
     </script>
     
 </body>

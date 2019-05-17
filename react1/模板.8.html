@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>模块与组件</title>
+    <title>react模板</title>
 </head>
 <body>
-    <div id="box"></div>
+    <div id="box">
+
+    </div>
     <script src="react.development.js"></script>
     <script src="react-dom.development.js"></script>
     <script src="browser.min.js"></script>
     <script type="text/babel">
-    let getId=document.getElementById('box');
-    //class
-    class Module extends React.Component{
-        render(){
-             return (
-                 <div> hello </div>
-             )
+        let getId=document.getElementById('box');
+        class Module extends React.Component{
+            render(){
+                return (
+                    <div>
+                            <h1>xxx</h1>
+                            <div>yyy</div>
+                    </div>
+
+                )
+
+            }
         }
-    }
-    ReactDOM.render(<Module/>,getId);
+        ReactDOM.render(<Module/>,getId);
     </script>
     
 </body>

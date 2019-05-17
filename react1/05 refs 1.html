@@ -17,31 +17,31 @@
         let getId=document.getElementById('box');
         class Module extends React.Component{
             constructor(props){
-                super(props)
+                super(props);
                 this.state={
-                    num:11
+                    msg:""
                 }
-                this.addNum=this.addNum.bind(this);
             }
-            addNum(){
+            show(even){
+                //console.log(even.target);原生js取 事件源
+              //  console.log(this.refs.userName);//取到input
+                //console.log( this.refs.userName.value);//取到input中的value值
                 this.setState({
-                    num:++this.state.num,
+                    msg:this.refs.userName.value,
                 })
-
+                console.log(this.state.msg);
             }
-
             render(){
                 return (
                     <div>
-                            <h1>{this.state.num}</h1>
-                            <button onClick={this.addNum}>add</button>
+                            <h1>{this.state.msg}</h1>
+                             <p><input ref="userName"   type="text" /></p>
+                             <p><button onClick={this.show.bind(this)}>show</button></p>
                     </div>
-
                 )
-
             }
         }
-        ReactDOM.render(<Module/>,getId);
+        ReactDOM.render(<Module></Module>,getId);
     </script>
     
 </body>

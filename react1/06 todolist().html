@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react模板</title>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="browser.min.js"></script>
+    <script type="text/babel">
+        let getId=document.getElementById('box');
+        //添加
+        class Add  extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.add=this.add.bind(this);
+
+                }
+                add(){
+                    if(this.msg.value==""){
+                        console.log("item!");
+                    }
+                    else{
+                        this.props.addHandler(this.msg.value);//调用父组件的方法
+                        this.msg.value="";
+
+                    }
+                   
+                }
+                //onClick={this.props.addHandler}//不能有(),不能传参
+                /* 解决办法：
+                <button onClick={()=>{
+                      this.props.addHandler(this.msg.value)
+                    }}>add</button>
+               */
+                render(){
+                    return(
+                        <div>
+                            <input type="text" ref={input=>{this.msg=input}}  />
+                            <button onClick={this.add}>add</button>
+                        
+                        </div>
+                    )
+                }
+        }
+        //列表
+        class List  extends React.Component{
+                constructor(props){
+                    super(props);
+                }
+                //map 映射新数组
+                render(){
+                    return(
+                        <ul>
+                        {
+                            this.props.todoList.map((val,index)=>{
+                                return <li key={index}>{val}</li>
+                            })
+                            
+                        }
+                        </ul>
+                    )
+                }
+        }
+        class Main extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state={
+                        List:['xx','yy','zz']
+                    }
+                    this.addHandler=this.addHandler.bind(this);
+                }
+                addHandler(value){
+                    let arr=[...this.state.List];
+                    arr.push(value);
+                    this.setState({
+                        List:arr
+
+                    })
+                }
+                render(){
+                    return(
+                        <div>
+                            <h1>todoLIst</h1> 
+                            <Add addHandler={this.addHandler}></Add>
+                            <List todoList={this.state.List}></List>
+                        </div>
+                    )
+                }
+        }
+      
+        ReactDOM.render(<Main/>,getId);
+    </script>
+    
+</body>
+</html>

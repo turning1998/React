@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react模板</title>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="browser.min.js"></script>
+    <script type="text/babel">
+        let getId=document.getElementById('box');
+        function Module(props) {//props是参数{父组件传来的值}
+            return(
+                <div>
+                        <h1>{props.title}</h1>
+                        <div>{props.content}</div>
+                        <div>{props.children}</div>
+                </div>
+            )
+        }
+        ReactDOM.render(<Module title="姓名" content="年龄">ssssssss
+        </Module>,getId);
+    </script>
+    
+</body>
+</html>
