@@ -20,7 +20,6 @@
                 constructor(props){
                     super(props);
                     this.add=this.add.bind(this);
-
                 }
                 add(){
                     if(this.msg.value==""){
@@ -29,9 +28,7 @@
                     else{
                         this.props.addHandler(this.msg.value);//调用父组件的方法
                         this.msg.value="";
-
                     }
-                   
                 }
                 //onClick={this.props.addHandler}//不能有(),不能传参
                 /* 解决办法：
