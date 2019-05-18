@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="box">
+
     </div>
     <script src="react.development.js"></script>
     <script src="react-dom.development.js"></script>
@@ -18,22 +19,33 @@
             constructor(props){
                 super(props);
                 this.state={
-                    msg:''
+                    namex:'xx'
                 }
-
+                this.show=this.show.bind(this);
             }
+
             show(){
-             this.setState({
-                 msg:this.my.value
+                alert(this.user.value);
+             this.setState({//异步操作
+                namex:this.user.value
+             },()=>{
+                alert(this.state.namex);
              })
+            
+
                 
             }
             render(){
                 return (
                     <div>
-                            <input type="text" ref={x =>{this.my=x}}/>
-                            <div onClick={this.show.bind(this)}>show</div>
-                            <div>{this.state.msg}</div>
+                             <p> 
+                                    <label >用户名:</label> 
+                                    <input id="name"  type="text" ref={(input)=>{ this.user=input}} />
+                            </p>
+                            <p>
+                                    <button onClick={this.show}>show</button>
+                            </p>
+
                     </div>
                 )
             }

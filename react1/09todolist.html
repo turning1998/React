@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todoList</title>
+    <style>
+        .check{
+            background-color: #ff0000;
+
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="browser.min.js"></script>
+    <script type="text/babel">
+    document.onselectstart=function () {
+        return false;
+    }
+        let getId=document.getElementById('box');
+        class Seach extends React.Component{
+            constructor(props){
+                super(props);
+               
+            }
+          
+            render(){
+                return (
+                    <div>
+                            <label >搜索:</label>
+                            <input  type="text" ref="val"  onChange={()=>{
+                                this.props.seachList(this.refs.val.value)
+        
+                                
+                                } } />
+                    </div>
+                )
+
+            }
+        }
+        class Add extends React.Component{
+            constructor(props){
+                super(props);
+                this.add=this.add.bind(this);
+            }
+            add(){
+                this.props.addList(this.item.value);
+                this.item.value=""
+               
+            }
+            render(){
+                return (
+                    <div>
+                            <label >添加:</label>
+                            <input id="name" type="text"  ref={input=>{this.item=input}}  />
+                            <button onClick={this.add}>添加</button>
+                    </div>
+                )
+
+            }
+        }
+        class Show extends React.Component{
+            constructor(props){
+                super(props);
+                this.checked=this.checked.bind(this);
+            }
+            checked(event){
+                this.props. checkList(event.target);
+
+            }
+            render(){
+                return (
+                    <ul>
+                       
+
+                        {
+                            this.props.List.map((value,index)=>{
+                                let classA=value.isTrue? 'check':'';
+                                let classB=value.isShow? '':'hide' ;
+                                return ( <li className={classA+''+classB}  key={index} ref="name"  >
+                                    <input type="checkbox"
+                                     checked={value.isTrue}
+                                     onClick={()=>{
+                                    this.props.checkList(index)
+                                    }
+                                } 
+                                 />
+                                       {value.name}
+                                    <button onClick={()=>{
+                                        this.props.deleteList(index)
+                                    }
+
+                                    }>删除</button>
+                                                                    
+                                </li>) 
+                               
+                            })
+                        }
+
+                    
+                    </ul>
+                )
+
+            }
+        }
+        class Main extends React.Component{
+            constructor(props){
+                super(props)
+                this.deleteList=this.deleteList.bind(this);
+                this.checkList=this.checkList.bind(this);
+                this.addList=this.addList.bind(this);
+                this.seachList=this.seachList.bind(this);
+                this.state={
+                    Info:[
+                        {
+                            name:"吃饭",
+                            isTrue:false,
+                            isShow:true
+
+                        },
+                        {
+                            name:"睡觉",
+                            isTrue:false,
+                            isShow:true
+
+                        },
+                        {
+                            name:"玩",
+                            isTrue:false,
+                            isShow:true
+
+                        }],
+                }
+            }
+            checkList(idx){
+                let arr=[...this.state.Info];
+               
+                arr[idx].isTrue=!arr[idx].isTrue;
+                this.setState({
+                    Info:arr
+
+                    })
+            }
+            addList(item){
+                let arr=[...this.state.Info];
+                arr.push({
+                     name:item,
+                     isTrue:false,
+                     isShow:true
+                });
+                this.setState({
+                    Info:arr
+                })
+            }
+            deleteList(idx){
+                let arr=[...this.state.Info];
+                arr.splice(idx,1);
+                this.setState({
+                    Info:arr
+                })
+            }
+            seachList(item){
+                console.log(item);
+                let arr=[... this.state.Info];
+                    arr.forEach((elem)=>{
+                        if(elem.name.includes(item)){
+                            elem.isShow=true;
+                        }
+                        else{
+                            elem.isShow=false;
+
+                        }
+                  
+                })
+                this.setState({
+                    Info:arr
+                })
+
+                console.log(arr);
+                /*this.state.Info=[...arr];
+                 console.log(this.state.Info);*/
+                
+
+            }
+
+            render(){
+                return (
+                    <div>
+                            <h1>todoList</h1>
+                            <Seach seachList={this.seachList}></Seach>
+                            <Add addList={this.addList} ></Add>
+                            <Show List={this.state.Info}   checkList={this.checkList}  deleteList={this.deleteList}></Show>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Main/>,getId);
+    </script>
+    
+</body>
+</html>
